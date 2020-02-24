@@ -46,10 +46,7 @@ var imageAnswer = "";
 resetGame();
 //reset game if time runs out or user answers all questions
 function resetGame() {
-    if(time === 0 || movieQuestions.length === 0){
-        $("#start-button").html("Start");
-    }
-    $("#start-button").text("Start Playing");
+    $("#start-button").text("Start Playing!");
     $("#time-remaining").text(timeRemaining);
     $("#question").text(question);
     $("#answer").text(answerChoices);
@@ -62,9 +59,10 @@ function resetGame() {
 
 }
 for (var i = 0; i < 8; i++) {
-    var question = movieQuestions[Math.floor(Math.random() * movieQuestions.length]
+    var question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
+}
 //if start button is clicked display movie question with answerchoices
-if()
+// if()
 //user selects one answerchoice
 
 //if answer if correct display image and correct text
@@ -72,6 +70,11 @@ if()
 //if not correct display not correct and correct answer/image
 
 //continue to next question with answer choices
+
+//if time runs out or there are no more questions display results
+if(time === 0 || movieQuestions.length === 0){
+    
+}
 
 
 
