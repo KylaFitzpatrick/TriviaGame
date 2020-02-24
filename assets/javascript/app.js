@@ -4,54 +4,63 @@ var movieQuestions = [
         choiceA: "Winnie the Pooh", 
         choiceB: "The Lion King",
         choiceC: "Alice in Wonderland", 
-        choiceD: "Peter Pan"
+        choiceD: "Peter Pan",
+        correct: "A"
     },{
 
         question: "Which movie was released on June 24, 1994?", 
         choiceA: "Winnie the Pooh", 
         choiceB: "The Lion King",
         choiceC: "Alice in Wonderland", 
-        choiceD: "Peter Pan"
+        choiceD: "Peter Pan",
+        correct: "B"
 
     },{
         question: "Which movie was release on July 28, 1951?", 
         choiceA: "Winnie the Pooh", 
         choiceB: "The Lion King",
         choiceC: "Alice in Wonderland", 
-        choiceD: "Peter Pan"
+        choiceD: "Peter Pan",
+        correct: "C"
     },{
         question:   "Which movie was about a boy who didn't want to grow up?",
         choiceA: "Winnie the Pooh", 
         choiceB: "The Lion King",
         choiceC: "Alice in Wonderland", 
-        choiceD: "Peter Pan" 
+        choiceD: "Peter Pan",
+        correct: "D"
+
 
     },{
         question: "In which movie was a deer friends with a rabbit named Thumper?",
         choiceA: "Bambi", 
         choiceB: "Snow White and the Seven Dwarfs",
         choiceC: "Pinocchio", 
-        choiceD: "Dumbo"
+        choiceD: "Dumbo",
+        correct: "A"
 
     },{
         question:  "Which movie was about an elephant that could fly?",
         choiceA: "Bambi", 
         choiceB: "Snow White and the Seven Dwarfs",
         choiceC: "Pinocchio", 
-        choiceD: "Dumbo"
+        choiceD: "Dumbo",
+        correct: "B"
 
     },{
         question: "What was the name of the wooden boy whose nose would grow after telling a lie?",
         choiceA: "Bambi", 
         choiceB: "Snow White and the Seven Dwarfs",
         choiceC: "Pinocchio", 
-        choiceD: "Dumbo"
+        choiceD: "Dumbo",
+        correct: "C"
     },{
         question: "What was the title of the movie that featured a dwarf named Happy?",
         choiceA: "Bambi", 
         choiceB: "Snow White and the Seven Dwarfs",
         choiceC: "Pinocchio", 
-        choiceD: "Dumbo"
+        choiceD: "Dumbo",
+        correct: "D"
     }
 ]; 
     
