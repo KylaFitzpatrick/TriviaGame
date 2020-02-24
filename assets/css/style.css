@@ -1,8 +1,19 @@
 body {
-    background-image:url("../assets/images/Clipart-Email-1401202.png");
+    /* background-image:url("../images/LionKing.png"); */
 }
-h1 {
-    font-size: 50px;
-    text-align: center;
 
+h1 {
+    font-size: 80px;
+    text-align: center;
+}
+
+#start-button{
+    text-align: center;
+}
+
+button{
+    font-size: 50px;
+    background-color:red;
+    border-width: 3px;
+    border-color: black;
 }
