@@ -20,7 +20,14 @@ var answers = [
 ];
 
 var answerImages = [
-    
+    "Pooh.png", 
+    "LionKing.png", 
+    "AliceInWonderland.png", 
+    "PeterPan.png", 
+    "Bambi.png", 
+    "Dumbo.gif", 
+    "Pinocchio.gif", 
+    "SnowWhite.jpg"
 ]
 
 //create a variable for time remaining
