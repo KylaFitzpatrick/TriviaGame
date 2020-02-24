@@ -1,23 +1,71 @@
 var movieQuestions = [ 
-    "What was the title of the movie about Pooh?", 
-    "Which movie was released on June 24, 1994?", 
-    "Which movie was release on July 28, 1951?", 
-    "Which movie was about a boy who didn't want to grow up?", 
-    "In which movie was a deer friends with a rabbit named Thumper?", 
-    "Which movie was about an elephant that could fly?", 
-    "What was the name of the wooden boy whose nose would grow after telling a lie?", 
-    "What was the title of the movie that featured a dwarf named Happy?"];
+    {
+        question: "What was the title of the movie about Pooh?",
+        choiceA: "Winnie the Pooh", 
+        choiceB: "The Lion King",
+        choiceC: "Alice in Wonderland", 
+        choiceD: "Peter Pan"
+    },{
 
-var answers = [
-    "Winnie the Pooh", 
-    "The Lion King", 
-    "Alice in Wonderland", 
-    "Peter Pan", 
-    "Bambi", 
-    "Dumbo", 
-    "Pinocchio", 
-    "Snow White and the Seven Dwarfs"
-];
+        question: "Which movie was released on June 24, 1994?", 
+        choiceA: "Winnie the Pooh", 
+        choiceB: "The Lion King",
+        choiceC: "Alice in Wonderland", 
+        choiceD: "Peter Pan"
+
+    },{
+        question: "Which movie was release on July 28, 1951?", 
+        choiceA: "Winnie the Pooh", 
+        choiceB: "The Lion King",
+        choiceC: "Alice in Wonderland", 
+        choiceD: "Peter Pan"
+    },{
+        question:   "Which movie was about a boy who didn't want to grow up?",
+        choiceA: "Winnie the Pooh", 
+        choiceB: "The Lion King",
+        choiceC: "Alice in Wonderland", 
+        choiceD: "Peter Pan" 
+
+    },{
+        question: "In which movie was a deer friends with a rabbit named Thumper?",
+        choiceA: "Bambi", 
+        choiceB: "Snow White and the Seven Dwarfs",
+        choiceC: "Pinocchio", 
+        choiceD: "Dumbo"
+
+    },{
+        question:  "Which movie was about an elephant that could fly?",
+        choiceA: "Bambi", 
+        choiceB: "Snow White and the Seven Dwarfs",
+        choiceC: "Pinocchio", 
+        choiceD: "Dumbo"
+
+    },{
+        question: "What was the name of the wooden boy whose nose would grow after telling a lie?",
+        choiceA: "Bambi", 
+        choiceB: "Snow White and the Seven Dwarfs",
+        choiceC: "Pinocchio", 
+        choiceD: "Dumbo"
+    },{
+        question: "What was the title of the movie that featured a dwarf named Happy?",
+        choiceA: "Bambi", 
+        choiceB: "Snow White and the Seven Dwarfs",
+        choiceC: "Pinocchio", 
+        choiceD: "Dumbo"
+    }
+]; 
+    
+
+// var answers = [
+//     "Winnie the Pooh", 
+//     "The Lion King", 
+//     "Alice in Wonderland", 
+//     "Peter Pan", 
+//     "Bambi", 
+//     "Dumbo", 
+//     "Pinocchio", 
+//     "Snow White and the Seven Dwarfs"
+// ];
 
 var answerImages = [
     "Pooh.png", 
@@ -58,11 +106,13 @@ function resetGame() {
     console.log("Number to guess: " + randomNumber);
 
 }
+
 for (var i = 0; i < 8; i++) {
     var question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
 }
 //if start button is clicked display movie question with answerchoices
-// if()
+$("#start-button").on("click", function() {
+if()
 //user selects one answerchoice
 
 //if answer if correct display image and correct text
