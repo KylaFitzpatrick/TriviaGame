@@ -17,13 +17,29 @@
     </div>
     <div class="container">
     <div id="game-stats">
-    <h3 id="time-remaining"></h3>
+    <div id="time-remaining">
+        <div id="timer">
+            <div id="counter"></div>
+            <div id="btimeGauge"></div>
+            <div id="timeGauge"></div>
+        </div>
+    </div>
     <br>
-    <h3 id="question"></h3>
+    <div id="question"></div>
     <br>
-    <h3 id="answers"></h3>
+    <div id="choices">
+        <div class="choice" id="A"
+        onclick="checkAnswer('A')"></div>
+        <div class="choice" id="B"
+        onclick="checkAnswer('B')"></div>
+        <div class="choice" id="C"
+        onclick="checkAnswer('C')"></div>
+        <div class="choice" id="D"
+        onclick="checkAnswer('D')"></div>
+    </div>
     <br>
     </div>
+    <div id="score" style="display:none"></div>
     <div id="results">
         <h3 id="result">
         </h3>

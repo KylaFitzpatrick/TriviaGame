@@ -119,6 +119,19 @@ function resetGame() {
 for (var i = 0; i < 8; i++) {
     var question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
 }
+
+var lastQuestion = questions.length - 1;
+let runningQuestion = 0;
+
+function renderQuestion(){
+    var q = question[runningQuestion];
+    question.innerHTML = "<p>" + q.question + "</p>"
+    choiceA.innerHTML = q.choiceA;
+    choiceB.innerHTML = q.choiceB;
+    choiceC.innerHTML = q.choiceC;
+    choiceD.innerHTML = q.choiceD;
+
+}
 //if start button is clicked display movie question with answerchoices
 $("#start-button").on("click", function() {
 if()
