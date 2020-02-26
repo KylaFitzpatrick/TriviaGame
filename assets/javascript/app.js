@@ -85,18 +85,34 @@ var answerImages = [
     "Dumbo.gif", 
     "Pinocchio.gif", 
     "SnowWhite.jpg"
-]
+];
 
 //create a variable for time remaining
 var timeRemaining = [];
 //create a variable for questions
-var questions = [];
+var question = [];
 //create a variable for possible answers
-var answerChoices = [];
+var choiceA = [];
+var choiceB = [];
+var choiceC = [];
+var choiceD = [];
 //displays correct or no after user guesses question
 var result = "";
 //display image/gif of answer
 var imageAnswer = "";
+
+var counter = 0;
+
+// var timeGauge = "";
+// var question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
+var lastQuestion = question.length - 1;
+var runningQuestion = 0;
+var count = 0;
+var questionTime = 30;
+// var gaugeWidth = 150;
+// var gaugeUnit = gaugeWidth/ questionTime;
+var timer;
+var score = 0;
 
 
 
@@ -106,35 +122,95 @@ function resetGame() {
     $("#start-button").text("Start Playing!");
     $("#time-remaining").text(timeRemaining);
     $("#question").text(question);
-    $("#answer").text(answerChoices);
     $("#result").text(result);
     $("#image-answer").text(imageAnswer);
+    $("#A").text(choiceA);
+    $("#B").text(choiceB);
+    $("#C").text(choiceC);
+    $("#D").text(choiceD);
+    $("#counter").text(counter);
+    // $("#timeGauge").text(timeGauge);
+    $("#score").text(score);
 
-    randomNumber = Math.floor(Math.random() * (120 - 19 + 1)) + 19;
-    $("#random-number").text(randomNumber);
-    console.log("Number to guess: " + randomNumber);
+    for (var i = 0; i < 8; i++) {
+    question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
+    $("#question").text(question[i]);
+    console.log("Question: " + question[i]);
+    }
 
 }
 
-for (var i = 0; i < 8; i++) {
-    var question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
-}
-
-var lastQuestion = questions.length - 1;
-let runningQuestion = 0;
-
+//display current question
 function renderQuestion(){
-    var q = question[runningQuestion];
-    question.innerHTML = "<p>" + q.question + "</p>"
-    choiceA.innerHTML = q.choiceA;
-    choiceB.innerHTML = q.choiceB;
-    choiceC.innerHTML = q.choiceC;
-    choiceD.innerHTML = q.choiceD;
+    question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
+    q = question[runningQuestion];
+    // question.innerHTML = "<p>" + q.question + "</p>"
+    // choiceA.innerHTML = q.choiceA;
+    // choiceB.innerHTML = q.choiceB;
+    // choiceC.innerHTML = q.choiceC;
+    // choiceD.innerHTML = q.choiceD;
+    $("#question").html("<p>" + q.question + "</p>");
+    $("#A").html(q.choiceA);
+    $("#B").html(q.choiceB);
+    $("#C").html(q.choiceC);
+    $("#D").html(q.choiceD);
 
+};
+
+//after start button click start quiz
+$("#start-button").addEventListener("click", startQuiz());
+function startQuiz(){
+start.style.display = "none";
+renderQuestion();
+quiz.style.display = "block"; 
+timer = setInterval(renderCounter, 1000)
+};
+
+//display time remainig
+function renderCounter(){
+ if(count <= question){
+     counter.innerHTML = count;
+     timeGauge.style.width = count++
+ }
+ else{
+    count = 0;
+    //display next question 
+    if(runningQuestion < lastQuestion){
+        runningQuestion ++;
+        renderQuestion();
+    }else{
+        //stop timer and display score
+        clearInterval(timer);
+        scoreRender();
+    }
+ }
 }
+//check answer
+function checkAnswer(answer){
+    if(answer === questions[runningQuestion].correct){
+        score++;
+    }
+    count = 0;
+    if(runningQuestion < lastQuestion){
+        runningQuestion ++;
+        renderQuestion();
+    }else{
+        clearInterval(timer);
+    }
+}
+
+//display score
+function scoreRender(){
+    score.style.display = "block";
+
+    var scorePerCent = Math.round(100 * score/questions.length);
+
+    $("#score").html += "<p>" + scorePerCent + "%</p>";
+}
+
 //if start button is clicked display movie question with answerchoices
-$("#start-button").on("click", function() {
-if()
+// $("#start-button").on("click", function() {
+// if()
 //user selects one answerchoice
 
 //if answer if correct display image and correct text
@@ -144,18 +220,6 @@ if()
 //continue to next question with answer choices
 
 //if time runs out or there are no more questions display results
-if(time === 0 || movieQuestions.length === 0){
+// if(time === 0 || movieQuestions.length === 0){
     
-}
-
-
-
-
-for(var i = 0; i < movieQuestions.length; i++){
-    questions = movieQuestions[Math.floor(Math.random() * movieQuestions.length)];
-    
-}
-
-
-
 
