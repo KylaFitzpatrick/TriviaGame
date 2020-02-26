@@ -109,16 +109,13 @@ var lastQuestion = question.length - 1;
 var runningQuestion = 0;
 var count = 0;
 var questionTime = 30;
-// var gaugeWidth = 150;
-// var gaugeUnit = gaugeWidth/ questionTime;
 var timer;
 var score = 0;
 
+display();
+// resetGame();
 
-
-resetGame();
-//reset game if time runs out or user answers all questions
-function resetGame() {
+function display(){
     $("#start-button").text("Start Playing!");
     $("#time-remaining").text(timeRemaining);
     $("#question").text(question);
@@ -131,14 +128,19 @@ function resetGame() {
     $("#counter").text(counter);
     // $("#timeGauge").text(timeGauge);
     $("#score").text(score);
-
-    for (var i = 0; i < 8; i++) {
-    question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
-    $("#question").text(question[i]);
-    console.log("Question: " + question[i]);
-    }
-
 }
+
+
+//reset game if time runs out or user answers all questions
+// function resetGame() {
+//     timer = 30;
+//     for (var i = 0; i < 8; i++) {
+//     question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
+//     $("#question").text(question);
+//     console.log("Question: " + question);
+//     }
+
+// }
 
 //display current question
 function renderQuestion(){
@@ -149,7 +151,7 @@ function renderQuestion(){
     // choiceB.innerHTML = q.choiceB;
     // choiceC.innerHTML = q.choiceC;
     // choiceD.innerHTML = q.choiceD;
-    $("#question").html("<p>" + q.question + "</p>");
+    $("#question").html(q.question);
     $("#A").html(q.choiceA);
     $("#B").html(q.choiceB);
     $("#C").html(q.choiceC);
@@ -158,6 +160,7 @@ function renderQuestion(){
 };
 
 //after start button click start quiz
+//if start button is clicked display movie question with choices
 $("#start-button").addEventListener("click", startQuiz());
 function startQuiz(){
 start.style.display = "none";
@@ -166,11 +169,11 @@ quiz.style.display = "block";
 timer = setInterval(renderCounter, 1000)
 };
 
-//display time remainig
+//display time remaining
 function renderCounter(){
  if(count <= question){
      counter.innerHTML = count;
-     timeGauge.style.width = count++
+    //  timeGauge.style.width = count++
  }
  else{
     count = 0;
@@ -186,11 +189,15 @@ function renderCounter(){
  }
 }
 //check answer
+//user selects one choice
+//if answer if correct display image and correct text
+//if not correct display not correct and correct answer/image
 function checkAnswer(answer){
     if(answer === questions[runningQuestion].correct){
         score++;
     }
     count = 0;
+    //continue to next question with choices
     if(runningQuestion < lastQuestion){
         runningQuestion ++;
         renderQuestion();
@@ -208,18 +215,9 @@ function scoreRender(){
     $("#score").html += "<p>" + scorePerCent + "%</p>";
 }
 
-//if start button is clicked display movie question with answerchoices
-// $("#start-button").on("click", function() {
-// if()
-//user selects one answerchoice
-
-//if answer if correct display image and correct text
-
-//if not correct display not correct and correct answer/image
-
-//continue to next question with answer choices
-
 //if time runs out or there are no more questions display results
-// if(time === 0 || movieQuestions.length === 0){
+if(timer === 0 || movieQuestions.length === 0){
+    scoreRender();
+}
     
 
