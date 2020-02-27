@@ -1,66 +1,44 @@
+$(document).ready(function() {
+
 var movieQuestions = [ 
     {
         question: "What was the title of the movie about Pooh?",
-        choiceA: "Winnie the Pooh", 
-        choiceB: "The Lion King",
-        choiceC: "Alice in Wonderland", 
-        choiceD: "Peter Pan",
-        correct: "A"
+        choices: ["Winnie the Pooh", "The Lion King", "Alice in Wonderland", "Peter Pan"],
+        correct: "Winnie the Pooh"
     },{
 
         question: "Which movie was released on June 24, 1994?", 
-        choiceA: "Winnie the Pooh", 
-        choiceB: "The Lion King",
-        choiceC: "Alice in Wonderland", 
-        choiceD: "Peter Pan",
-        correct: "B"
+        choices: ["Winnie the Pooh", "The Lion King", "Alice in Wonderland", "Peter Pan"],
+        correct: "The Lion King"
 
     },{
         question: "Which movie was release on July 28, 1951?", 
-        choiceA: "Winnie the Pooh", 
-        choiceB: "The Lion King",
-        choiceC: "Alice in Wonderland", 
-        choiceD: "Peter Pan",
-        correct: "C"
+        choices: ["Winnie the Pooh", "The Lion King", "Alice in Wonderland", "Peter Pan"],
+        correct: "Alice in Wonderland"
     },{
         question:   "Which movie was about a boy who didn't want to grow up?",
-        choiceA: "Winnie the Pooh", 
-        choiceB: "The Lion King",
-        choiceC: "Alice in Wonderland", 
-        choiceD: "Peter Pan",
-        correct: "D"
+        choices: ["Winnie the Pooh", "The Lion King", "Alice in Wonderland", "Peter Pan"],
+        correct: "Peter Pan"
 
 
     },{
         question: "In which movie was a deer friends with a rabbit named Thumper?",
-        choiceA: "Bambi", 
-        choiceB: "Snow White and the Seven Dwarfs",
-        choiceC: "Pinocchio", 
-        choiceD: "Dumbo",
-        correct: "A"
+        choices: ["Bambi", "Snow White and the Seven Dwarfs", "Pinocchio", "Dumbo"],
+        correct: "Bambi"
 
     },{
         question: "Which movie was about an elephant that could fly?",
-        choiceA: "Bambi", 
-        choiceB: "Snow White and the Seven Dwarfs",
-        choiceC: "Pinocchio", 
-        choiceD: "Dumbo",
-        correct: "B"
+        choices: ["Bambi","Snow White and the Seven Dwarfs", "Pinocchio", "Dumbo"] ,
+        correct: "Snow White and the Seven Dwarfs"
 
     },{
         question: "What was the name of the wooden boy whose nose would grow after telling a lie?",
-        choiceA: "Bambi", 
-        choiceB: "Snow White and the Seven Dwarfs",
-        choiceC: "Pinocchio", 
-        choiceD: "Dumbo",
-        correct: "C"
+        choices: ["Bambi", "Snow White and the Seven Dwarfs","Pinocchio", "Dumbo"],
+        correct: "Pinocchio"
     },{
         question: "What was the title of the movie that featured a dwarf named Happy?",
-        choiceA: "Bambi", 
-        choiceB: "Snow White and the Seven Dwarfs",
-        choiceC: "Pinocchio", 
-        choiceD: "Dumbo",
-        correct: "D"
+        choices: ["Bambi", "Snow White and the Seven Dwarfs", "Pinocchio", "Dumbo"],
+        correct: "Dumbo"
     }
 ];  
     
@@ -93,29 +71,21 @@ var timeRemaining = [];
 //create a variable for questions
 var question = "";
 //create a variable for possible answers
-var choiceA = [];
-var choiceB = [];
-var choiceC = [];
-var choiceD = [];
+var choices = [];
 //displays correct or no after user guesses question
 var result = "";
 //display image/gif of answer
 var imageAnswer = "";
 
 var counter = 0;
-// function result() {
-//     if(result === question.correct[0]){
-
-//     }
-// }
-// var timeGauge = "";
-// var question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
+var selections= [];
 var lastQuestion = question.length - 1;
 var runningQuestion = 0;
 var count = 30;
 // var questionTime = 30;
 var timer;
 var score = 0;
+// var checkAnswer = "";
 
 display();
 // resetGame();
@@ -126,13 +96,14 @@ function display(){
     $("#question").text(question);
     $("#result").text(result);
     $("#image-answer").text(imageAnswer);
-    $("#A").text(choiceA);
-    $("#B").text(choiceB);
-    $("#C").text(choiceC);
-    $("#D").text(choiceD);
+    $("#A").text(choices[0]);
+    $("#B").text(choices[1]);
+    $("#C").text(choices[2]);
+    $("#D").text(choices[3]);
     $("#counter").text(counter);
     // $("#timeGauge").text(timeGauge);
     $("#score").text(score);
+    $(".choice").click(checkAnswer);
 }
 
 
@@ -152,10 +123,10 @@ function renderQuestion(){
     question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
     q = question[runningQuestion];
     $("#question").text(question.question);
-    $("#A").text(question.choiceA);
-    $("#B").text(question.choiceB);
-    $("#C").html(question.choiceC);
-    $("#D").html(question.choiceD);
+    $("#A").text(question.choices[0]);
+    $("#B").text(question.choices[1]);
+    $("#C").text(question.choices[2]);
+    $("#D").text(question.choices[3]);
 
 };
 
@@ -201,12 +172,10 @@ function renderCounter(){
 //user selects one choice
 //if answer if correct display image and correct text
 //if not correct display not correct and correct answer/image
-$(".choice").on("click", function(){
-    if(question.correct){
-        choiceA = "A" 
-        choiceB = "B" 
-        choiceC = "C" 
-        choiceD = "D"
+function checkAnswer(){
+    if (questions[i].choices[selections[i]] === questions[i].correct) {
+    // for(var i = 0;i < choices.length; i++ )
+    // if(choices[i] === question.correct){
         score++;
     }
     count = 0;
@@ -217,19 +186,32 @@ $(".choice").on("click", function(){
     }else{
         clearInterval(timer);
     }
-});
+};
 //display score
 function scoreRender(){
     $("#score").css(display = "block");
 
-    var scorePerCent = Math.round(100 * score/movieQuestions.length);
+    var score = 0;
+    for (var i = 0; i < selections.length; i++) {
+      if (selections[i] === questions[i].correctAnswer) {
+        score++;
+      }
+    }
 
-    $("#score").html += "<p>" + scorePerCent + "%</p>";
-}
+    score.append(
+      "You got " +
+      numCorrect +
+      " questions out of " +
+      questions.length +
+      " right!!!"
+    );
+    return score;
+  };
+
 
 //if time runs out or there are no more questions display results
-if(timer === 0 || movieQuestions.length === 0){
-    scoreRender();
-}
-   
+// if(timer === 0 || movieQuestions.length === 0){
+//     scoreRender();
+// }
+});  
 
