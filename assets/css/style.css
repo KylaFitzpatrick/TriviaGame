@@ -13,6 +13,7 @@ h1 {
     background-color:red;
     border-width: 3px;
     border-color: black;
+    display: "none";
 
 }
 
@@ -22,4 +23,7 @@ button{
     float: center;
     justify-content: center;
     text-align: center;
+}
+#question{
+    display: "block";
 }

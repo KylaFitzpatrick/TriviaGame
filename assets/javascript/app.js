@@ -90,7 +90,7 @@ var answerImages = [
 //create a variable for time remaining
 var timeRemaining = [];
 //create a variable for questions
-var question = [];
+var question = "";
 //create a variable for possible answers
 var choiceA = [];
 var choiceB = [];
@@ -145,29 +145,29 @@ function display(){
 //display current question
 function renderQuestion(){
     question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
-    q = question[runningQuestion];
+    // q = question[runningQuestion];
     // question.innerHTML = "<p>" + q.question + "</p>"
     // choiceA.innerHTML = q.choiceA;
     // choiceB.innerHTML = q.choiceB;
     // choiceC.innerHTML = q.choiceC;
     // choiceD.innerHTML = q.choiceD;
-    $("#question").html(q.question);
-    $("#A").html(q.choiceA);
-    $("#B").html(q.choiceB);
-    $("#C").html(q.choiceC);
-    $("#D").html(q.choiceD);
+    $("#question").text(question.question);
+    $("#A").text(question.choiceA);
+    $("#B").text(question.choiceB);
+    $("#C").html(question.choiceC);
+    $("#D").html(question.choiceD);
 
 };
 
 //after start button click start quiz
 //if start button is clicked display movie question with choices
-$("#start-button").addEventListener("click", startQuiz());
-function startQuiz(){
-start.style.display = "none";
+$("#start-button").on("click", function() {
+// function startQuiz(){
+$("#start-button").css(display = "none");
 renderQuestion();
-quiz.style.display = "block"; 
+$("#question").css(display = "block"); 
 timer = setInterval(renderCounter, 1000)
-};
+});
 
 //display time remaining
 function renderCounter(){
@@ -219,5 +219,5 @@ function scoreRender(){
 if(timer === 0 || movieQuestions.length === 0){
     scoreRender();
 }
-    
+   
 
