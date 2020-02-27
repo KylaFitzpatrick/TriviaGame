@@ -40,7 +40,7 @@ var movieQuestions = [
         correct: "A"
 
     },{
-        question:  "Which movie was about an elephant that could fly?",
+        question: "Which movie was about an elephant that could fly?",
         choiceA: "Bambi", 
         choiceB: "Snow White and the Seven Dwarfs",
         choiceC: "Pinocchio", 
@@ -62,7 +62,8 @@ var movieQuestions = [
         choiceD: "Dumbo",
         correct: "D"
     }
-]; 
+];  
+    
     
 
 // var answers = [
@@ -102,13 +103,17 @@ var result = "";
 var imageAnswer = "";
 
 var counter = 0;
+// function result() {
+//     if(result === question.correct[0]){
 
+//     }
+// }
 // var timeGauge = "";
 // var question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
 var lastQuestion = question.length - 1;
 var runningQuestion = 0;
-var count = 0;
-var questionTime = 30;
+var count = 30;
+// var questionTime = 30;
 var timer;
 var score = 0;
 
@@ -145,12 +150,7 @@ function display(){
 //display current question
 function renderQuestion(){
     question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
-    // q = question[runningQuestion];
-    // question.innerHTML = "<p>" + q.question + "</p>"
-    // choiceA.innerHTML = q.choiceA;
-    // choiceB.innerHTML = q.choiceB;
-    // choiceC.innerHTML = q.choiceC;
-    // choiceD.innerHTML = q.choiceD;
+    q = question[runningQuestion];
     $("#question").text(question.question);
     $("#A").text(question.choiceA);
     $("#B").text(question.choiceB);
@@ -165,18 +165,27 @@ $("#start-button").on("click", function() {
 // function startQuiz(){
 $("#start-button").css(display = "none");
 renderQuestion();
-$("#question").css(display = "block"); 
-timer = setInterval(renderCounter, 1000)
+$("#question").css(display = "block");
+
+var count = 30; 
+var interval = setInterval(function(){
+$("#counter").text = count;
+count --;
+if (count === 0){
+    clearInterval(interval);
+    $("#counter").text = "You're out of time!";
+}
+}, 1000);
 });
 
 //display time remaining
 function renderCounter(){
  if(count <= question){
-     counter.innerHTML = count;
+     $("#counter").text = count;
     //  timeGauge.style.width = count++
  }
  else{
-    count = 0;
+    count = 30;
     //display next question 
     if(runningQuestion < lastQuestion){
         runningQuestion ++;
@@ -192,8 +201,12 @@ function renderCounter(){
 //user selects one choice
 //if answer if correct display image and correct text
 //if not correct display not correct and correct answer/image
-function checkAnswer(answer){
-    if(answer === questions[runningQuestion].correct){
+$(".choice").on("click", function(){
+    if(question.correct){
+        choiceA = "A" 
+        choiceB = "B" 
+        choiceC = "C" 
+        choiceD = "D"
         score++;
     }
     count = 0;
@@ -204,13 +217,12 @@ function checkAnswer(answer){
     }else{
         clearInterval(timer);
     }
-}
-
+});
 //display score
 function scoreRender(){
-    score.style.display = "block";
+    $("#score").css(display = "block");
 
-    var scorePerCent = Math.round(100 * score/questions.length);
+    var scorePerCent = Math.round(100 * score/movieQuestions.length);
 
     $("#score").html += "<p>" + scorePerCent + "%</p>";
 }
