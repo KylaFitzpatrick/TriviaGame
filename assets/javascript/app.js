@@ -1,5 +1,26 @@
 $(document).ready(function() {
 
+    //after start button click start quiz
+    //if start button is clicked display movie question with choices
+    // $("#start-button").click(function() {
+    //     $("#start-button").css(display = "none");
+    //     renderQuestion();
+    //     $("#question").css(display = "block");
+    //     // $('#question').show(600);
+    //     // $('#count').show(700);
+    //     // $('#hide').hide(500);
+    
+    
+    //   });
+    // $("#start-button").on("click", function() {
+    //     // function startQuiz(){
+    //     $("#start-button").css(display = "none");
+    //     renderQuestion();
+    //     $("#question").css(display = "block");
+        
+    
+
+var movieIndex = 0
 var movieQuestions = [ 
     {
         question: "What was the title of the movie about Pooh?",
@@ -67,7 +88,8 @@ var answerImages = [
 ];
 
 //create a variable for time remaining
-var timeRemaining = [];
+var count = 30; 
+         
 //create a variable for questions
 var question = "";
 //create a variable for possible answers
@@ -82,78 +104,106 @@ var selections= [];
 var lastQuestion = question.length - 1;
 var runningQuestion = 0;
 var count = 30;
-// var questionTime = 30;
+
 var timer;
 var score = 0;
-// var checkAnswer = "";
+var interval;
+ 
 
-display();
-// resetGame();
 
+function countDown() {
+  $("#count").text("")
+        $("#displayTimer").html("00:" + count);
+        count--;
+        console.log(count)
+       
+        if (count === 0){
+
+            if(movieIndex < movieQuestions.length){
+              movieIndex++
+              count = 30
+             
+              $("#hideTimer").hide()
+              //$("#displayTimer").text("00:" + count);
+              $("#count").text("You're out of time!");
+
+              setTimeout(startGame,3000)
+             
+            }
+            clearInterval(interval);
+        }
+        
+}
+
+function startGame(){
+  $("#hideTimer").show()
+  display()
+  interval = setInterval(countDown, 1000);
+      
+}
+
+$("#start-button").on("click", function (){
+     //  alert("Clicked");
+      startGame()
+})
+
+
+// display start button, questions, choices, answers and score
 function display(){
     $("#start-button").text("Start Playing!");
-    $("#time-remaining").text(timeRemaining);
-    $("#question").text(question);
-    $("#result").text(result);
-    $("#image-answer").text(imageAnswer);
-    $("#A").text(choices[0]);
-    $("#B").text(choices[1]);
-    $("#C").text(choices[2]);
-    $("#D").text(choices[3]);
-    $("#counter").text(counter);
-    // $("#timeGauge").text(timeGauge);
-    $("#score").text(score);
-    $(".choice").click(checkAnswer);
+
+   
+    $("#question").text(movieQuestions[movieIndex].question);
+
+    var choiceArray = movieQuestions[movieIndex].choices
+    $("#choice").empty()
+    for(var i = 0; i < choiceArray.length; i++)
+  {
+    $("#choice").append("<p class='choicebtn'>" + choiceArray[i] + "<br>");
+  }
+
+
+  $(".choicebtn").on("click", function(){
+    alert("testing")
+  })
+  //  $("#result").text(result);
+   // $("#image-answer").text(;
+    // $("#A").text(choices[0]);
+    // $("#B").text(choices[1]);
+    // $("#C").text(choices[2]);
+    // $("#D").text(choices[3]);
+  //  $("#counter").text(counter);
+   // $("#score").text(score);
+  //  $(".choice").click(checkAnswer);
 }
-
-
-//reset game if time runs out or user answers all questions
-// function resetGame() {
-//     timer = 30;
-//     for (var i = 0; i < 8; i++) {
-//     question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
-//     $("#question").text(question);
-//     console.log("Question: " + question);
-//     }
-
-// }
+// displayNext();
+  
+      //  choice button
+      // $("button").on("click", function(e) {
+      //   e.preventDefault();
+  
+        // Suspend click listener during fade animation
+        // if (quiz.is(":animated")) {
+        //   return false;
+        // }
+        // choose();
 
 //display current question
-function renderQuestion(){
-    question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
-    q = question[runningQuestion];
-    $("#question").text(question.question);
-    $("#A").text(question.choices[0]);
-    $("#B").text(question.choices[1]);
-    $("#C").text(question.choices[2]);
-    $("#D").text(question.choices[3]);
+// function renderQuestion(){
+//     question = movieQuestions[Math.floor(Math.random() * movieQuestions.length)]
+//     q = question[runningQuestion];
+//     $("#question").text(question.question);
+//     $("#A").text(question.choices[0]);
+//     $("#B").text(question.choices[1]);
+//     $("#C").text(question.choices[2]);
+//     $("#D").text(question.choices[3]);
 
-};
-
-//after start button click start quiz
-//if start button is clicked display movie question with choices
-$("#start-button").on("click", function() {
-// function startQuiz(){
-$("#start-button").css(display = "none");
-renderQuestion();
-$("#question").css(display = "block");
-
-var count = 30; 
-var interval = setInterval(function(){
-$("#counter").text = count;
-count --;
-if (count === 0){
-    clearInterval(interval);
-    $("#counter").text = "You're out of time!";
-}
-}, 1000);
-});
+// };
 
 //display time remaining
 function renderCounter(){
  if(count <= question){
-     $("#counter").text = count;
-    //  timeGauge.style.width = count++
+     $("#count").text = count;
  }
  else{
     count = 30;
@@ -168,6 +218,34 @@ function renderCounter(){
     }
  }
 }
+ // Creates and returns the div that contains the questions and
+      // the answer selections
+      function createQuestionElement(index) {
+        var qElement = $("<div>", {
+          id: "question"
+        });
+  
+        var header = $("<h2>Question " + (index + 1) + ":</h2>");
+        qElement.append(header);
+  
+        var question = $("<p>").append(questions[index].question);
+        qElement.append(question);
+  
+        var buttons = createButtons(index);
+        qElement.append(buttons);
+  
+        return qElement;
+      }
+ // Creates a list of the answer choices as buttons
+ function createButtons(index) {
+    var buttonList = $("<button>");
+    var item;
+    for (var i = 0; i < questions[index].choices.length; i++) {
+      item += questions[index].choices[i];
+      buttonList.append(item);
+    }
+    return buttonList;
+  }
 //check answer
 //user selects one choice
 //if answer if correct display image and correct text
@@ -187,11 +265,38 @@ function checkAnswer(){
         clearInterval(timer);
     }
 };
-//display score
-function scoreRender(){
+
+function choose() {
+    if (questions[i].choices[selections[i]] === questions[i].correctAnswer) {
+    numCorrect++;
+    }
+};
+
+// Displays next requested element
+function displayNext() {
+    quiz.fadeOut(function() {
+      $("#question").remove();
+
+      if (questionCounter < questions.length) {
+        var nextQuestion = createQuestionElement(questionCounter);
+        quiz.append(nextQuestion).fadeIn();
+        if (!isNaN(selections[questionCounter])) {
+          $("input[value=" + selections[questionCounter] + "]").prop(
+            "checked",
+            true
+          );
+        }
+      } else {
+        var scoreElem = displayScore();
+        quiz.append(scoreElem).fadeIn();
+      }
+    })
+};
+// Computes score and returns a paragraph element to be displayed
+function displayScore(){
     $("#score").css(display = "block");
 
-    var score = 0;
+    var numCorrect = 0;
     for (var i = 0; i < selections.length; i++) {
       if (selections[i] === questions[i].correctAnswer) {
         score++;
@@ -212,6 +317,6 @@ function scoreRender(){
 //if time runs out or there are no more questions display results
 // if(timer === 0 || movieQuestions.length === 0){
 //     scoreRender();
-// }
-});  
+});
+ 
 

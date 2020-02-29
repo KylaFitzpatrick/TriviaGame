@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <title>Disney Trivia</title>
 
@@ -12,38 +13,36 @@
     <header>
         <h1>Disney Trivia</h1>
     </header>
-    <div id="start">
-        <button id="start-button">Start Playing!</button>
-    </div>
     <div class="container">
-    <div id="game-stats">
-    <div id="time-remaining">
-        <div id="timer">
-            <div id="counter"></div>
-            <!-- <div id="btimeGauge"></div>
-            <div id="timeGauge"></div> -->
+        <div class="row">
+          <div id="header" class="text-center col-12-lg">
+            <button id="start-button" class="start-button">Start!</button>
+          </div>
+        <div id="questions" class="row">
+          <div class="col-12-lg">
+            <div id='content'>
+              <br/>
+              <div id='quiz'></div> 
+        <div id="count"class="row">
         </div>
-    </div>
-    <br>
-    <div id="question"></div>
-    <br>
-    <div id="choices">
-        <button class="choice" id="A"
-        onclick="checkAnswer('A')"></button>
-        <button class="choice" id="B"
-        onclick="checkAnswer('B')"></button>
-        <button class="choice" id="C"
-        onclick="checkAnswer('C')"></button>
-        <button class="choice" id="D"
-        onclick="checkAnswer('D')"></button>
-    </div>
-    <br>
+
+        <div id="hideTimer">
+          <div class="col-12-lg text-center" id="display">
+            <h3 id="displayTimer">00:00</h3>
+          </div>
+
+      <br>
+      <div id="question"></div>
+      <br>
+      <div id="choice"></div>
+      <br>
+        </div>
+           
+      
     </div>
     <div id="score" style="display:none"></div>
-    <div id="results">
-        <h3 id="result">
-        </h3>
-        <h3 id="image-answer"></h3>
+        <div id="result"></div>
+        <div id="image-answer"></div>
     </div>
 </div>
 <script
