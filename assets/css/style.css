@@ -1,10 +1,11 @@
-html
+/* html */
 
 body{
     height: 100%; 
-    background-image: linear-gradient(white, blue); 
+    /* background-image: linear-gradient(white, blue);  */
     font-family: 'Chicle', cursive;
     color:lightblue;
+    background-color: blue;
 }
 .container{
     margin: 0 auto;
@@ -15,7 +16,7 @@ body{
 html #questions {
     font-family: 'Chicle', cursive;
     font-size: 50px;
-    height: 100%;
+    /* height: 100%; */
     
 }
 

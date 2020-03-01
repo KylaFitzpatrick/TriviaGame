@@ -85,8 +85,6 @@ var interval;
 
               setTimeout(startGame,3000)
              
-            }else{
-              displayScore();
             }
             clearInterval(interval);
         }
@@ -98,7 +96,10 @@ var interval;
     $("#hideTimer").show()
     display()
     interval = setInterval(countDown, 1000);
-        
+    if(count === 0 || movieQuestions.length === 0){
+      displayScore()
+      } 
+    
   }
 
   $("#start-button").on("click", function (){
@@ -109,7 +110,6 @@ var interval;
 
   // display start button, questions, choices, answers and score
   function display(){
-
     $("#question").text(movieQuestions[movieIndex].question);
 
     var choiceArray = movieQuestions[movieIndex].choices
@@ -124,7 +124,7 @@ var interval;
     //when user click button its either correct or incorrect
     //increase score for correct
     $(".choicebtn").on("click", function(){
-      alert("clicked")
+      alert("clicked");
       // var type = $(this).data('clicked', true);
       // selections[i] = movieQuestions[movieIndex].correct
       // if(type === correctAnswer){
@@ -132,7 +132,7 @@ var interval;
       // } 
       // alert("testing")
       $("#hideQuiz").hide()
-      // displayAnswer();
+      displayAnswer();
       // display(); 
       //if time runs out or there are no more questions display results
       // if(count === 0 || movieQuestions.length === 0){
