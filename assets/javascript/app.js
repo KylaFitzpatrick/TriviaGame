@@ -50,26 +50,21 @@ var movieQuestions = [
 ];  
 
 
-//create a variable for time remaining
-var count = 30; 
-//create a variable for questions
-// var movieQuestions = [];
-//create a variable for possible answers
-// var choices = [];
-//displays correct or no after user guesses question
-// var result = "";
-
-// var counter = 0;
-var selections= [];
-
+//variable for time remaining
+var count = 30;
+//variable for incorrect answers
+var numIncorrect = 0;
+//variable for correct answers
 var numCorrect = 0;
+//clears interval set by javascript
 var interval;
+
  
 
   //display countdown timer after start button is clicked
   function countDown() {
-  $("#count").text("")
-        $("#displayTimer").html("00:" + count);
+        $("#count").text("")
+        $("#displayTimer").html("Time remaining: 00:" + count);
         count--;
         console.log(count)
        
@@ -80,100 +75,91 @@ var interval;
               count = 30
              
               $("#hideTimer").hide()
-              //$("#displayTimer").text("00:" + count);
               $("#count").text("You're out of time!");
 
               setTimeout(startGame,3000)
-             
+              
             }
             clearInterval(interval);
-        }
+          }
+        } 
         
-  }
+        
 
   //showing timer after game starts
   function startGame(){
     $("#hideTimer").show()
     display()
-    interval = setInterval(countDown, 1000);
-    if(count === 0 || movieQuestions.length === 0){
-      displayScore()
-      } 
+    interval = setInterval(countDown, 1000)
     
   }
-
+  //after user clicks start button the button is hidden
   $("#start-button").on("click", function (){
       //  alert("Clicked");
       $(".hideButton").hide()
-        startGame()
+        startGame()    
   });
 
-  // display start button, questions, choices, answers and score
+  // display questions and choices
   function display(){
     $("#question").text(movieQuestions[movieIndex].question);
-
+    var choiceCorrect = movieQuestions[movieIndex].correct
     var choiceArray = movieQuestions[movieIndex].choices
     $("#choice").empty()
     for(var i = 0; i < choiceArray.length; i++)
     {
       $("#choice").append("<p class='choicebtn'>" + choiceArray[i] + "<br>");
+      if(choiceArray[i] === choiceCorrect){
+        numCorrect++;
+        $("#score").append("<p Correct answers: " + numCorrect + "<br>");
+        $(".hideScore").hide()
+      }
+      if(choiceArray[i] !== choiceCorrect){
+        numIncorrect++;
+        $("#score").append("<p Incorrect answers: " + numIncorrect + "<br>");
+        $("hideScore").hide()
+      }
+    }
+    
+    //when user clicks button its either correct or incorrect
+    $(".choicebtn").on("click", function(){
+      // alert("clicked");
+      $("#hideQuiz").hide()
+      //show image and answer
+      displayAnswer()
+      //dipslay answer after user selects choice
+      if(count === 0 && movieQuestions.length === 1){
+        $("#hideScore").show()
+      
+        $("#score").append(
+          "You got " +
+          numCorrect +
+          " questions out of " +
+          movieQuestions.length +
+          " right"
+        );
+      }
+    
+    });
+  
+  
+
+    //displays correct answer text and correct image
+      function displayAnswer(){
+      var correctText = movieQuestions[movieIndex].correct
+      var disneyImage = movieQuestions[movieIndex].answerImage;
+      $("#image-answer").text(" You are correct. The answer is " + correctText)
+      $("#image-answer").append("<img src=" + disneyImage + ">");
+      $(".hideAnswer").show()
+      setTimeout(startGame,3000)
+      if(count === 0){
+        clearInterval(interval)
+        $(".hideAnswer").hide()
+        $("#hideQuiz").show()
+      }
     }
   }
 
-
-    //when user click button its either correct or incorrect
-    //increase score for correct
-    $(".choicebtn").on("click", function(){
-      alert("clicked");
-      // var type = $(this).data('clicked', true);
-      // selections[i] = movieQuestions[movieIndex].correct
-      // if(type === correctAnswer){
-      //   numCorrect ++; 
-      // } 
-      // alert("testing")
-      $("#hideQuiz").hide()
-      displayAnswer();
-      // display(); 
-      //if time runs out or there are no more questions display results
-      // if(count === 0 || movieQuestions.length === 0){
-      // displayScore()
-      // }    
-    });
-
-    //dipslay answer after user selects choice
-  function displayAnswer(){
-    // if (movieQuestions[movieIndex].choices[i] === questions[i].correct){
-    var correctText = movieQuestions[movieIndex].correct
-    var disneyImage = movieQuestions[movieIndex].answerImage;
-      $("#image-answer").html("You are correct. The answer is" + correctText + "<br>")
-      $("#image-answer").append("<img src=" + disneyImage + ">");
-      setTimeout(startGame,3000)
-      numCorrect++;
-    // }else{
-    //   $("#image-answer").html("You are incorrect. The correct answer is" + correctText + "<br>")
-    //   $("#image-answer").append("<img src=" + disneyImage + ">");
-    //   setTimeout(startGame,3000)
-    // }
-  }
-
-    function displayScore(){
-    $("#score").css(display = "block");
-    numCorrect = 0;
-    for (var i = 0; i < selections.length; i++) {
-      if (selections[i] === movieQuestions[i].correctAnswer) {
-        numCorrect++;
-      }
-    };
-  
-
-    $("#score").append(
-      "You got " +
-      numCorrect +
-      " questions out of " +
-      movieQuestions.length +
-      " right!!!"
-    );
-    return score;
-
-};
 });
+    
+
