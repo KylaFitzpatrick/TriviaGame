@@ -45,7 +45,7 @@ var movieQuestions = [
         question: "What was the title of the movie that featured a dwarf named Happy?",
         choices: ["Bambi", "Snow White and the Seven Dwarfs", "Pinocchio", "Dumbo"],
         correct: "Snow White and the Seven Dwarfs",
-        answerImage: "assets/images/SnowWhite.jpg"
+        answerImage: "assets/images/SnowWhite.png"
     }
 ];  
 
@@ -189,14 +189,15 @@ var interval;
       $("#score").show()
       $("#hideQuiz").hide()
       clearInterval(interval)
-      unanswered = movieQuestions.length - numCorrect + numIncorrect
+      
+      unanswered = movieQuestions.length - numCorrect - numIncorrect
       $("#score").append(
-        "You got " +
-        numCorrect + "correct" +"<br>"+
-        numIncorrect + "incorrect" +"<br>"+
-        unanswered + "unanswered" +"<br>"+
-        " questions out of " +
-        movieQuestions.length 
+        "Disney Trivia Results:" + "<br>" +
+        "Correct: " + numCorrect + "<br>" +
+        "Incorrect: " + numIncorrect + "<br>" +
+        "Unanswered: " + unanswered + "<br>"+
+        "Score: " +
+        numCorrect + "/" + movieQuestions.length 
       );
     
   }
