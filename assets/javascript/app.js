@@ -33,7 +33,7 @@ var movieQuestions = [
     },{
         question: "Which movie was about an elephant that could fly?",
         choices: ["Bambi","Snow White and the Seven Dwarfs", "Pinocchio", "Dumbo"] ,
-        correct: "Snow White and the Seven Dwarfs",
+        correct: "Dumbo",
         answerImage: "assets/images/Dumbo.gif"
 
     },{
@@ -44,7 +44,7 @@ var movieQuestions = [
     },{
         question: "What was the title of the movie that featured a dwarf named Happy?",
         choices: ["Bambi", "Snow White and the Seven Dwarfs", "Pinocchio", "Dumbo"],
-        correct: "Dumbo",
+        correct: "Snow White and the Seven Dwarfs",
         answerImage: "assets/images/SnowWhite.jpg"
     }
 ];  
@@ -56,6 +56,8 @@ var count = 30;
 var numIncorrect = 0;
 //variable for correct answers
 var numCorrect = 0;
+//variable for unanswered
+var unanswered = 0;
 //clears interval set by javascript
 var interval;
 
@@ -63,6 +65,7 @@ var interval;
 
   //display countdown timer after start button is clicked
   function countDown() {
+  
         $("#count").text("")
         $("#displayTimer").html("Time remaining: 00:" + count);
         count--;
@@ -70,17 +73,19 @@ var interval;
        
         if (count === 0){
 
-            if(movieIndex < movieQuestions.length){
+            if(movieIndex < movieQuestions.length - 1){
               movieIndex++
               count = 30
              
-              $("#hideTimer").hide()
               $("#count").text("You're out of time!");
 
               setTimeout(startGame,3000)
               
+            }else if(movieIndex <= movieQuestions.length - 1 && count === 0){
+              showResults()
             }
             clearInterval(interval);
+
           }
         } 
         
@@ -88,7 +93,9 @@ var interval;
 
   //showing timer after game starts
   function startGame(){
-    $("#hideTimer").show()
+    $("#hideQuiz").show()
+    $("#score").hide()
+    $("#image-answer").hide()
     display()
     interval = setInterval(countDown, 1000)
     
@@ -102,64 +109,97 @@ var interval;
 
   // display questions and choices
   function display(){
-    $("#question").text(movieQuestions[movieIndex].question);
-    var choiceCorrect = movieQuestions[movieIndex].correct
-    var choiceArray = movieQuestions[movieIndex].choices
-    $("#choice").empty()
-    for(var i = 0; i < choiceArray.length; i++)
-    {
-      $("#choice").append("<p class='choicebtn'>" + choiceArray[i] + "<br>");
-      if(choiceArray[i] === choiceCorrect){
-        numCorrect++;
-        $("#score").append("<p Correct answers: " + numCorrect + "<br>");
-        $(".hideScore").hide()
-      }
-      if(choiceArray[i] !== choiceCorrect){
-        numIncorrect++;
-        $("#score").append("<p Incorrect answers: " + numIncorrect + "<br>");
-        $("hideScore").hide()
-      }
-    }
-    
-    //when user clicks button its either correct or incorrect
-    $(".choicebtn").on("click", function(){
-      // alert("clicked");
-      $("#hideQuiz").hide()
-      //show image and answer
-      displayAnswer()
-      //dipslay answer after user selects choice
-      if(count === 0 && movieQuestions.length === 1){
-        $("#hideScore").show()
-      
-        $("#score").append(
-          "You got " +
-          numCorrect +
-          " questions out of " +
-          movieQuestions.length +
-          " right"
-        );
-      }
-    
-    });
-  
-  
+    if(movieIndex < movieQuestions.length){
+      $("#question").text(movieQuestions[movieIndex].question);
+      // var choiceCorrect = movieQuestions[movieIndex].correct
+      var choiceArray = movieQuestions[movieIndex].choices
 
+
+      console.log(movieQuestions[movieIndex].question)
+      $("#choice").empty()
+      for(var i = 0; i < choiceArray.length; i++)
+      {
+        $("#choice").append("<p class='choicebtn'>" + choiceArray[i] + "<br>");
+      }
+      //if user click button check if clicked button is correct answer
+      
+      //when user clicks button its either correct or incorrect
+      $(".choicebtn").on("click", function(){
+        
+      //console.log($(this).val(), $(".choicebtn").val())
+        // alert("clicked");
+        $("#hideQuiz").hide()
+        //show answer
+        $("#score").show()
+        $("#image-answer").show()
+  
+        var userChoice = $(this).text()
+        //show image and answer
+        displayAnswer(userChoice)
+      
+      
+      });
+    }
+
+   
+  
+  }
     //displays correct answer text and correct image
-      function displayAnswer(){
+    function displayAnswer(userChoice){
+      // var choiceCorrect = movieQuestions[movieIndex].correct
+      // var choiceText = movieQuestions[movieIndex].choices
       var correctText = movieQuestions[movieIndex].correct
       var disneyImage = movieQuestions[movieIndex].answerImage;
-      $("#image-answer").text(" You are correct. The answer is " + correctText)
-      $("#image-answer").append("<img src=" + disneyImage + ">");
-      $(".hideAnswer").show()
-      setTimeout(startGame,3000)
-      if(count === 0){
-        clearInterval(interval)
-        $(".hideAnswer").hide()
-        $("#hideQuiz").show()
+      console.log(correctText, userChoice)
+      if( correctText  === userChoice){
+        $("#image-answer").text(" You are correct. The answer is " + correctText)
+        $("#image-answer").append("<img src=" + disneyImage + ">");
+         numCorrect++
+      }else if(correctText  !== userChoice){
+        $("#image-answer").text(" You are incorrect. The answer is " + correctText)
+        $("#image-answer").append("<img src=" + disneyImage + ">");
+        numIncorrect++
+      }else{
+        $("#image-answer").text("The answer is " + correctText)
+        $("#image-answer").append("<img src=" + disneyImage + ">");
       }
-    }
+      
+
+      $("#score").show()
+      $("#image-answer").show()
+      clearInterval(interval)
+      // setTimeout(startGame,3000)
+      //timeout for 3 seconds
+      movieIndex++
+      count = 30
+
+      console.log(movieIndex, movieQuestions.length)
+      if(  movieIndex >= movieQuestions.length ){
+       
+        setTimeout(showResults, 3000)
+
+        return
+         //dipslay answer after user selects choice
+       }
+      setTimeout(startGame,3000)
+    
   }
 
+  function showResults(){
+      $("#score").show()
+      $("#hideQuiz").hide()
+      clearInterval(interval)
+      unanswered = movieQuestions.length - numCorrect + numIncorrect
+      $("#score").append(
+        "You got " +
+        numCorrect + "correct" +"<br>"+
+        numIncorrect + "incorrect" +"<br>"+
+        unanswered + "unanswered" +"<br>"+
+        " questions out of " +
+        movieQuestions.length 
+      );
+    
+  }
 });
     
 
